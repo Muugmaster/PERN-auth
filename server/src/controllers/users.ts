@@ -100,7 +100,12 @@ const refreshToken = async (req: Request, res: Response) => {
 const profile = async (req: Request, res: Response) => {
   const authorization = req.headers['authorization']
 
-  if (!authorization) return null
+  if (!authorization) {
+    return res.status(401).json({
+      success: false,
+      message: 'Not authenticated',
+    })
+  }
 
   try {
     const token = authorization.split(' ')[1]

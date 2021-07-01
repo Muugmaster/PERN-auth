@@ -8,7 +8,7 @@ export class User extends BaseEntity {
   @Column({ type: 'text', unique: true })
   email: string
 
-  @Column({ type: 'text', select: false })
+  @Column({ type: 'text' })
   password: string
 
   @Column({ type: 'timestamp', default: new Date() })
