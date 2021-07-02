@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Routes } from './Routes'
+import usersService from './services/users'
 
 function App() {
-  return <div>hello</div>
+  const [user, setUser] = useState(null)
+  const checkLoginStatus = async () => {
+    try {
+      const response = await usersService.profile()
+      console.log('logged in?', response)
+      if (response) {
+        setUser(response.user)
+      } else if (!response) {
+        setUser(null)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    checkLoginStatus()
+  }, [])
+
+  // @ts-ignore
+  return <Routes user={user} />
 }
 
 export default App

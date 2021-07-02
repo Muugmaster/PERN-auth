@@ -4,7 +4,7 @@ import { User } from '../entity/User'
 
 const createAccessToken = (user: User) => {
   return sign({ userId: user.id }, config.ACCESS_TOKEN_SECRET!, {
-    expiresIn: '15min',
+    expiresIn: '15s',
   })
 }
 
