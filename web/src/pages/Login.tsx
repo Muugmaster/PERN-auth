@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { FormEvent } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import loginService from '../services/login'
 import { setAccessToken } from '../utils/accessToken'
 
-export const Login: React.FC<RouteComponentProps> = ({ history }) => {
+export const Login: React.FC<RouteComponentProps> = () => {
+  let history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 

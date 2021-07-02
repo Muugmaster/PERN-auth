@@ -67,6 +67,15 @@ const login = async (req: Request, res: Response) => {
   })
 }
 
+const logout = async (_: Request, res: Response) => {
+  res.clearCookie('jid', {
+    domain: 'localhost',
+    path: '/',
+    httpOnly: true,
+  })
+  return res.send({ success: true })
+}
+
 const refreshToken = async (req: Request, res: Response) => {
   const token = req.cookies.jid
   if (!token) {
@@ -131,6 +140,7 @@ const getAllUsers = async (_: Request, res: Response) => {
 export default {
   register,
   login,
+  logout,
   refreshToken,
   profile,
   getAllUsers,

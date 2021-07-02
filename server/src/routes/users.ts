@@ -10,6 +10,9 @@ usersRouter.post('/register', users.register)
 // Login
 usersRouter.post('/login', users.login)
 
+// Logout
+usersRouter.get('/logout', users.logout)
+
 // Refresh token
 usersRouter.post('/refresh_token', users.refreshToken)
 

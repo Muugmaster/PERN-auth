@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import usersService from '../services/users'
+import loginService from '../services/login'
 
 interface Props {}
 
 export const Home: React.FC<Props> = () => {
+  let history = useHistory()
+
   const [users, setUsers] = useState([])
 
   const getUsers = async () => {
     const response = await usersService.getAll()
     console.log(response)
     setUsers(response.users)
+  }
+
+  const handleLogout = async () => {
+    const response = await loginService.logOut()
+    window.localStorage.removeItem('user')
+    console.log(response)
+    history.push('/register')
   }
 
   useEffect(() => {
@@ -27,6 +38,7 @@ export const Home: React.FC<Props> = () => {
             })
           : null}
       </div>
+      <button onClick={() => handleLogout()}>logout</button>
     </div>
   )
 }

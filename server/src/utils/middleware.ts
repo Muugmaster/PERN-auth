@@ -12,6 +12,8 @@ const isAuth = (req: Request, res: Response, next: NextFunction) => {
     })
   }
 
+  console.log(authorization)
+
   try {
     const token = authorization.split(' ')[1]
     const payload = verify(token, config.ACCESS_TOKEN_SECRET!)

@@ -2,13 +2,24 @@ import axios from 'axios'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
 import { getAccessToken } from '../utils/accessToken'
 
-const API_URL = 'http://localhost:4000/api/v1/users'
-const REFRESH_URL = 'http://localhost:4000/api/v1/users/refresh_token'
+const API_URL = '/users'
+const REFRESH_URL = '/users/refresh_token'
 
 const instance = axios.create({
-  baseURL: REFRESH_URL,
+  baseURL: 'http://localhost:4000/api/v1',
+  timeout: 100000,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${getAccessToken()}`,
+  },
   withCredentials: true,
 })
+
+// instance.interceptors.request.use((request) => {
+//   console.log(getAccessToken())
+//   request.headers['Authorization'] = `Bearer ${getAccessToken()}`
+//   return request
+// })
 
 const refreshAuthLogic = (failedRequest: any) => {
   return instance.post(REFRESH_URL).then((tokenRefreshResponse) => {
@@ -19,22 +30,15 @@ const refreshAuthLogic = (failedRequest: any) => {
   })
 }
 
-createAuthRefreshInterceptor(axios, refreshAuthLogic, {
-  statusCodes: [401, 403],
-})
-
-axios.interceptors.request.use((request) => {
-  request.headers['Authorization'] = `Bearer ${getAccessToken()}`
-  return request
-})
+createAuthRefreshInterceptor(axios, refreshAuthLogic)
 
 const getAll = async () => {
-  const response = await axios.get(`${API_URL}/all`)
+  const response = await instance.get(`${API_URL}/all`)
   return response.data
 }
 
 const profile = async () => {
-  const response = await axios.get(`${API_URL}/profile`)
+  const response = await instance.get(`${API_URL}/profile`)
   return response.data
 }
 
