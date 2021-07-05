@@ -62,4 +62,4 @@ yarn
 
 ## TODO:
 
-- [] Add basic styling
+- [ ] Add basic styling
