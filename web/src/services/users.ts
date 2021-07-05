@@ -15,12 +15,6 @@ const instance = axios.create({
   withCredentials: true,
 })
 
-// instance.interceptors.request.use((request) => {
-//   console.log(getAccessToken())
-//   request.headers['Authorization'] = `Bearer ${getAccessToken()}`
-//   return request
-// })
-
 const refreshAuthLogic = (failedRequest: any) => {
   return instance.post(REFRESH_URL).then((tokenRefreshResponse) => {
     localStorage.setItem('user', tokenRefreshResponse.data.accessToken)
@@ -30,7 +24,12 @@ const refreshAuthLogic = (failedRequest: any) => {
   })
 }
 
-createAuthRefreshInterceptor(axios, refreshAuthLogic)
+createAuthRefreshInterceptor(instance, refreshAuthLogic)
+
+// instance.interceptors.request.use((request) => {
+//   request.headers['Authorization'] = `Bearer ${getAccessToken()}`
+//   return request
+// })
 
 const getAll = async () => {
   const response = await instance.get(`${API_URL}/all`)

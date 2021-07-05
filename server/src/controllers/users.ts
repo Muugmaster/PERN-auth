@@ -70,7 +70,7 @@ const login = async (req: Request, res: Response) => {
 const logout = async (_: Request, res: Response) => {
   res.clearCookie('jid', {
     domain: 'localhost',
-    path: '/',
+    path: '/api/v1/users/refresh_token',
     httpOnly: true,
   })
   return res.send({ success: true })
