@@ -1,6 +1,7 @@
 # PERN auth
 
 This app is boilerplate for PERN stack with basic authentication built in.
+I built this app to learn how to create authentication using PERN stack.
 
 ## Features
 
