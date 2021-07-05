@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useContext } from 'react'
 import { FormEvent } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom'
 import loginService from '../services/login'
+import { UserContext } from '../UserContext'
 import { setAccessToken } from '../utils/accessToken'
 
 export const Login: React.FC<RouteComponentProps> = () => {
+  const { user, setUser } = useContext(UserContext)
   let history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,8 +21,13 @@ export const Login: React.FC<RouteComponentProps> = () => {
     })
     if (user && user.success) {
       setAccessToken(user.accessToken)
+      setUser(user.user)
+      history.push('/users')
     }
-    history.push('/')
+  }
+
+  if (user) {
+    return <Redirect to="/" />
   }
 
   return (

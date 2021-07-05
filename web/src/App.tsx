@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Routes } from './Routes'
 import usersService from './services/users'
+import { UserContext } from './UserContext'
 
 function App() {
   const [user, setUser] = useState(null)
+
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
   const checkLoginStatus = async () => {
     try {
@@ -21,8 +24,11 @@ function App() {
     checkLoginStatus()
   }, [])
 
-  // @ts-ignore
-  return <Routes user={user} />
+  return (
+    <UserContext.Provider value={providerValue}>
+      <Routes />
+    </UserContext.Provider>
+  )
 }
 
 export default App
