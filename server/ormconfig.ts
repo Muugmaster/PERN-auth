@@ -1,11 +1,9 @@
-import config from './src/utils/config'
-
-export default {
+module.exports = {
   type: 'postgres',
-  url: config.DATABASE_URL,
+  url: process.env.DATABASE_URL,
   synchronize: true,
   logging: false,
-  entities: ['src/entity/**/*.ts'],
+  entities: ['dist/entity/**/*.js'],
   migrations: ['src/migration/**/*.ts'],
   subscribers: ['src/subscriber/**/*.ts'],
   cli: {
