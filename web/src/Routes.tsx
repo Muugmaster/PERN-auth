@@ -19,9 +19,8 @@ const Logout: React.FC = () => {
   const { setUser } = useContext(UserContext)
 
   const handleLogout = async () => {
-    const response = await loginService.logOut()
+    await loginService.logOut()
     window.localStorage.removeItem('user')
-    console.log(response)
     setUser(null)
     history.push('/login')
   }
@@ -35,7 +34,6 @@ const Logout: React.FC = () => {
 
 export const Routes: React.FC = () => {
   const { user } = useContext(UserContext)
-  console.log(user)
 
   return (
     <BrowserRouter>
