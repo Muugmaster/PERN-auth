@@ -26,7 +26,11 @@ const Logout: React.FC = () => {
     history.push('/login')
   }
 
-  return <button onClick={() => handleLogout()}>logout</button>
+  return (
+    <Link to="/login" onClick={() => handleLogout()}>
+      logout
+    </Link>
+  )
 }
 
 export const Routes: React.FC = () => {
@@ -55,7 +59,9 @@ export const Routes: React.FC = () => {
                 <li>
                   <Link to="/users">Users</Link>
                 </li>
-                <Logout />
+                <li>
+                  <Logout />
+                </li>
               </>
             )}
           </ul>
